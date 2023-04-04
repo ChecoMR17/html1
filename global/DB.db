@@ -2515,9 +2515,9 @@ Genero nvarchar(20) not null,
 RFC nvarchar(20) null,
 Curp nvarchar(20) null,
 N_Social nvarchar(20) null,
-Correo nvarchar(50) not null,
-Celular nvarchar(10) not null,
-Telefono nvarchar(13) null,
+Correo nvarchar(100) not null,
+Celular nvarchar(15) not null,
+Telefono nvarchar(15) null,
 Fecha_Ingreso date not null,
 Fecha_alta datetime not null,
 Fecha_baja datetime null,
@@ -2525,5 +2525,131 @@ Fecha_Modificacion datetime null,
 Observaciones nvarchar(500),
 Dias_Laborales int not null,
 Sueldo float not null,
+Id_Estado int not null,
+foreign key (Id_Estado) references Estados(Id_Estado),
+Id_Municipios int not null,
+foreign key (Id_Municipios) references Municipios(Id_Municipios),
+Colonia nvarchar(100) not null,
+Calle nvarchar(100) not null,
+N_Exterior float null default 0,
+N_Interior float null default 0,
+Codigo_P int not null,
 Status nvarchar(1)
+);
+
+CREATE TABLE User(
+Id int primary key auto_increment, 
+Id_Empleado int not null,
+foreign key (Id_Empleado) references Empleados(Id_Empleado),
+Usuario nvarchar(20) not null,
+Contraseña nvarchar(255),
+Rol int not null,
+Fecha_Alta datetime not null,
+Fecha_Baja datetime null,
+Fecha_Modificacion datetime null,
+UF_Activo datetime null,
+Activo binary(1) not null,
+Status nvarchar(1)
+);
+
+INSERT INTO Empleados (Nombre,Apellido_P,Apellido_M,Genero,RFC,Curp,N_Social,Correo,Celular,Telefono,Fecha_Ingreso,Fecha_alta,Observaciones,
+Dias_Laborales,Sueldo,Id_Estado,Id_Municipios,Colonia,Calle,N_Exterior,N_Interior,Codigo_P,Status) 
+VALUES ('admin',' ',' ',' ',' ',' ',' ',' ',' ',' ','2023-03-30','2023-03-30','','0','0','17','925','','','0','0','0','A');
+
+INSERT INTO User(Id_Empleado,Usuario,Contraseña,Rol,Fecha_Alta,Activo,Status) VALUES('1','admin','$2y$10$lcm0I9CJF5fhp7xcJbZ/ReB49T1gppocKGLPPiCLhSCcLihhPz98.','0','2023-03-29','0','A');
+
+
+CREATE TABLE Clientes(
+Id int primary key auto_increment,
+T_Persona nvarchar(20) not null,
+Nombre nvarchar(50) not null,
+Apellido_P nvarchar(50) null,
+Apellido_M nvarchar(50) null,
+RFC nvarchar(13) null,
+Correo_C nvarchar(100) null,
+Correo_P nvarchar(100) null,
+Telefono nvarchar(15) null,
+Celular nvarchar(15) null,
+Id_Estado int not null,
+foreign key (Id_Estado) references Estados(Id_Estado),
+Id_Municipios int not null,
+foreign key (Id_Municipios) references Municipios(Id_Municipios),
+Colonia nvarchar(100) not null,
+Calle nvarchar(100) not null,
+N_Exterior float null,
+N_Interior float null,
+Codigo_P int not null,
+Observaciones nvarchar(500) null,
+Fecha_Alta datetime not null,
+Fecha_Modificacion datetime null,
+Fecha_Baja datetime null,
+Status nvarchar(1)
+);
+
+CREATE TABLE Contactos_Clientes(
+Id int primary key auto_increment,
+Id_Cliente int not null,
+foreign key (Id_Cliente) references Clientes(Id),
+Nombre nvarchar(50) not null,
+Apellido_P nvarchar(50) null,
+Apellido_M nvarchar(50) null,
+Telefono nvarchar(15) null,
+Celular nvarchar(15) null,
+Correo_C nvarchar(100) null,
+Correo_P nvarchar(100) null,
+Observaciones nvarchar(500) null,
+Fecha_Alta datetime not null,
+Fecha_Modificacion datetime null,
+Fecha_baja datetime null,
+Status nvarchar(1)
+);
+
+CREATE TABLE Clasificaciones(
+Id int primary key auto_increment,
+Nombre nvarchar(150) not null,
+Status nvarchar(1)
+);
+
+CREATE TABLE Obras(
+Id int primary key auto_increment,
+Id_Cliente int not null,
+foreign key (Id_Cliente) references Clientes(Id),
+Id_Clasificacion int not null,
+foreign key (Id_Clasificacion) references Clasificaciones(Id),
+Nombre_Obra nvarchar(500) not null,
+Id_Estado int not null,
+foreign key (Id_Estado) references Estados(Id_Estado),
+Id_Municipios int not null,
+foreign key (Id_Municipios) references Municipios(Id_Municipios),
+Colonia nvarchar(100) not null,
+Calle nvarchar(100) not null,
+N_Exterior float null default 0,
+N_Interior float null default 0,
+Codigo_P int not null,
+Observaciones nvarchar(500) null,
+Fecha_Alta datetime not null,
+Fecha_Modificacion datetime null,
+Fecha_baja datetime null,
+Status nvarchar(1)
+);
+
+CREATE TABLE Ordenes_Trabajo(
+Id int primary key auto_increment,
+Id_Cliente int not null,
+foreign key (Id_Cliente) references Clientes(Id),
+Id_Obra int not null,
+foreign key (Id_Obra) references Obras(Id),
+Id_Contacto int not null,
+foreign key (Id_Contacto) references Contactos_Clientes(Id),
+Prioridad nvarchar(50) not null,
+Proyecto nvarchar(200) not null,
+Fecha_Inicio date not null,
+Fecha_Final date not null,
+Detalles nvarchar(5000) null,
+Fecha_Alta datetime not null,
+Fecha_Modificacion datetime null,
+Fecha_Ejecucion datetime null,
+Fecha_Concluido datetime null,
+Fecha_Cancelacion datetime null,
+Status nvarchar(1) not null
 );

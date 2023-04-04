@@ -23,7 +23,7 @@ let Guardar_Empleado = (e) => {
   e.preventDefault();
   let data = new FormData($("#Agregar_Usuarios")[0]);
   Swal.fire({
-    title: "¿Estás seguro de guardar?",
+    title: "¿Estás seguro(a) de guardar?",
     text: "",
     icon: "question",
     showCancelButton: true,
@@ -48,7 +48,7 @@ let Guardar_Empleado = (e) => {
           contentType: false,
           processData: false,
           success: function (result) {
-            console.log(result);
+            //console.log(result);
             if (result == 200) {
               Swal.fire({
                 position: "center",
@@ -83,8 +83,8 @@ let Guardar_Empleado = (e) => {
     } else {
       Swal.fire({
         position: "center",
-        icon: "error",
-        title: "¡Error, Intentalo más tarde!",
+        icon: "info",
+        title: "¡Operación cancelada!",
         showConfirmButton: false,
         timer: 1500,
       });
@@ -141,7 +141,7 @@ let Datos_A_Editar = (Id) => {
 
 let Baja_Empleado = (Id) => {
   Swal.fire({
-    title: "¿Estás seguro de dar de baja al empleado?",
+    title: "¿Estás seguro(a) de dar de baja al empleado?",
     text: "",
     icon: "question",
     showCancelButton: true,
@@ -188,8 +188,8 @@ let Baja_Empleado = (Id) => {
     } else {
       Swal.fire({
         position: "center",
-        icon: "error",
-        title: "¡Error, Intentalo más tarde!",
+        icon: "info",
+        title: "¡Operación cancelada!",
         showConfirmButton: false,
         timer: 1500,
       });
@@ -199,7 +199,7 @@ let Baja_Empleado = (Id) => {
 
 let Reactivar_Empleado = (Id) => {
   Swal.fire({
-    title: "¿Estás seguro de reactivar al empleado?",
+    title: "¿Estás seguro(a) de reactivar al empleado?",
     text: "",
     icon: "question",
     showCancelButton: true,
@@ -246,8 +246,8 @@ let Reactivar_Empleado = (Id) => {
     } else {
       Swal.fire({
         position: "center",
-        icon: "error",
-        title: "¡Error, Intentalo más tarde!",
+        icon: "info",
+        title: "¡Operación cancelada!",
         showConfirmButton: false,
         timer: 1500,
       });
@@ -256,32 +256,30 @@ let Reactivar_Empleado = (Id) => {
 };
 
 let Mostrar_Lista_Empleados = () => {
-  setTimeout(() => {
-    Tbl_Empleados = $("#Tbl_Empleados")
-      .dataTable({
-        language: {
-          search: "BUSCAR",
-          info: "_START_ A _END_ DE _TOTAL_ ELEMENTOS",
+  Tbl_Empleados = $("#Tbl_Empleados")
+    .dataTable({
+      language: {
+        search: "BUSCAR",
+        info: "_START_ A _END_ DE _TOTAL_ ELEMENTOS",
+      },
+      dom: "Bfrtip",
+      buttons: ["copy", "excel", "pdf"],
+      autoFill: true,
+      colReorder: true,
+      rowReorder: true,
+      ajax: {
+        url: "../Archivos/Empleados/Operaciones.php?op=Mostrar_Tbl_Empleados",
+        type: "post",
+        dataType: "json",
+        error: (e) => {
+          console.log("Error función listar()\n" + e.responseText);
         },
-        dom: "Bfrtip",
-        buttons: ["copy", "excel", "pdf"],
-        autoFill: true,
-        colReorder: true,
-        rowReorder: true,
-        ajax: {
-          url: "../Archivos/Empleados/Operaciones.php?op=Mostrar_Tbl_Empleados",
-          type: "post",
-          dataType: "json",
-          error: (e) => {
-            console.log("Error función listar()\n" + e.responseText);
-          },
-        },
-        bDestroy: true,
-        iDisplayLength: 20,
-        order: [[0, "asc"]],
-      })
-      .DataTable();
-  }, 250);
+      },
+      bDestroy: true,
+      iDisplayLength: 20,
+      order: [[0, "asc"]],
+    })
+    .DataTable();
 };
 
 let Mostrar_Estados = () => {
@@ -332,7 +330,7 @@ let Guardar_Usuario = (e) => {
   e.preventDefault();
   let data = new FormData($("#Form_Usuarios")[0]);
   Swal.fire({
-    title: "¿Estás seguro de guardar?",
+    title: "¿Estás seguro(a) de guardar?",
     text: "",
     icon: "question",
     showCancelButton: true,
@@ -392,8 +390,8 @@ let Guardar_Usuario = (e) => {
     } else {
       Swal.fire({
         position: "center",
-        icon: "error",
-        title: "¡Error, Inténtalo más tarde!",
+        icon: "info",
+        title: "¡Operación cancelada!",
         showConfirmButton: false,
         timer: 1500,
       });
@@ -455,7 +453,7 @@ let Mostrar_Lista_Usuarios = () => {
 
 let Baja_Usuario = (Id) => {
   Swal.fire({
-    title: "¿Estás seguro de dar de baja al usuario?",
+    title: "¿Estás seguro(a) de dar de baja al usuario?",
     text: "",
     icon: "question",
     showCancelButton: true,
@@ -502,8 +500,8 @@ let Baja_Usuario = (Id) => {
     } else {
       Swal.fire({
         position: "center",
-        icon: "error",
-        title: "¡Error, Intentalo más tarde!",
+        icon: "info",
+        title: "¡Operación cancelada!",
         showConfirmButton: false,
         timer: 1500,
       });
@@ -513,7 +511,7 @@ let Baja_Usuario = (Id) => {
 
 let Reactivar_Usuario = (Id) => {
   Swal.fire({
-    title: "¿Estás seguro de dar de baja al usuario?",
+    title: "¿Estás seguro(a) de dar de baja al usuario?",
     text: "",
     icon: "question",
     showCancelButton: true,
@@ -560,8 +558,8 @@ let Reactivar_Usuario = (Id) => {
     } else {
       Swal.fire({
         position: "center",
-        icon: "error",
-        title: "¡Error, Intentalo más tarde!",
+        icon: "info",
+        title: "¡Operación cancelada!",
         showConfirmButton: false,
         timer: 1500,
       });

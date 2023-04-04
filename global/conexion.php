@@ -6,6 +6,7 @@ $password = "smr17";
 $BD = "FF";
 $port = "3306";
 $conexion = mysqli_connect($host, $user, $password, $BD, $port);
+date_default_timezone_set('America/Mexico_City');
 if ($conexion) {
     if (!function_exists('ejecutarConsulta')) {
         function ejecutarConsulta($sql)

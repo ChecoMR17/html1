@@ -1,7 +1,6 @@
 <?php
 include "../../global/conexion.php";
 //Varibales
-date_default_timezone_set('America/Mexico_City');
 $Fecha_Actual = date("Y-m-d H:i:s");
 $Id = isset($_POST['Id']) ? $_POST['Id'] : "";
 $Nombre = isset($_POST['Nombre']) ? $_POST['Nombre'] : "";
@@ -85,13 +84,13 @@ switch ($_GET["op"]) {
             $Botones = '';
             $status = "";
             if ($fila->Status == "A") {
-                $status = '<div class="col badge text-white bg-primary">Activo</div>';
+                $status = '<div class="badge text-white bg-success">Activo</div>';
                 $Botones = '
-                <button type="button" class="btn btn-outline-info btn-sm mr-2" title="Modificar" onclick="Datos_A_Editar(' . $fila->Id_Empleado . ')"><i class="fa-solid fa-user-pen"></i></button>
-                <button type="button" class="btn btn-outline-danger btn-sm" title="Baja" onclick="Baja_Empleado(' . $fila->Id_Empleado . ')"><i class="fa-solid fa-xmark"></i></button>
+                <button type="button" class="btn btn-outline-info btn-sm mr-2" title="Modificar" onclick="Datos_A_Editar(' . $fila->Id_Empleado . ')"><i class="fa-solid fa-user-pen fa-beat"></i></button>
+                <button type="button" class="btn btn-outline-danger btn-sm" title="Baja" onclick="Baja_Empleado(' . $fila->Id_Empleado . ')"><i class="fa-solid fa-xmark fa-beat"></i></button>
                 ';
             } else {
-                $status = '<div class="col badge text-white bg-danger">Baja</div>';
+                $status = '<div class="badge text-white bg-danger">Baja</div>';
                 $Botones = '
                 <button type="button" class="btn btn-outline-success btn-sm mr-2" title="Reactivar Empleado" onclick="Reactivar_Empleado(' . $fila->Id_Empleado . ')" ><i class="fa-solid fa-check"></i></button>
                 ';
@@ -100,16 +99,18 @@ switch ($_GET["op"]) {
             $fila->N_Interior = ($fila->N_Interior != "0") ? ", # " . $fila->N_Interior . " " : "";
 
             $Direccion = "C " . $fila->Calle . ", # " . $fila->N_Exterior . $fila->N_Interior . ", Loc. " . $fila->Colonia . ", CP. " . $fila->Codigo_P . ", " . $fila->Municipio . ", " . $fila->Estado;
-
+            $Telefonos = '<div class="alert alert-success" role="alert">
+                <b>Celular: </b> ' . $fila->Celular . ' <br>
+                <b>Telefono: </b> ' . $fila->Telefono . '
+            </div>';
             $datos[] = array(
                 "0" => "<div class='text-left'>$fila->Nombre $fila->Apellido_P $fila->Apellido_M</div>",
                 "1" => "<div class='text-left'>$fila->Correo</div>",
-                "2" => "<div class='text-left'>$fila->Telefono</div>",
-                "3" => "<div class='text-left'>$fila->Celular</div>",
-                "4" => "<div class='text-left'>$Direccion</div>",
-                "5" => "<div class='text-left'>$fila->Observaciones</div>",
-                "6" => $status,
-                "7" => "<div class='d-flex justify-content-center'>$Botones</div>",
+                "2" => "<div class='text-left'>$Telefonos</div>",
+                "3" => "<div class='text-left'>$Direccion</div>",
+                "4" => "<div class='text-left'>$fila->Observaciones</div>",
+                "5" => $status,
+                "6" => "<div class='d-flex justify-content-center'>$Botones</div>",
             );
         }
         $results = array(
@@ -149,7 +150,7 @@ switch ($_GET["op"]) {
             // Validamos que el usuario no exista
             $Count = ejecutarConsultaSimpleFila("SELECT COUNT(*) FROM User WHERE Usuario='$Nombre_Usuario'")[0];
             if ($Count == 0) {
-                $query = ejecutarConsulta("INSERT INTO User(Id_Empleado,Usuario,Contraseña,Rol,Fecha_Alta,Activo,Status) VALUES('$Nombre_Emp','$Nombre_Usuario','$pwd_hash','$Rol','$Fecha_Actual','0','A')");
+                $query = ejecutarConsulta("INSERT INTO User(Id_Empleado,Usuario,Contraseña,Rol,Fecha_Alta,Activo,Status) VALUES('$Nombre_Emp','$Nombre_Usuario','$pwd_hash','$Rol','$Fecha_Actual','0','A');");
                 echo $query ? 200 : 201;
             } else {
                 echo 202;
@@ -185,21 +186,21 @@ switch ($_GET["op"]) {
             $Rol = "";
             $Status = "";
             if ($fila->Rol == "0") {
-                $Rol = '<div class="col badge text-white bg-secondary">Admin</div>';
+                $Rol = '<div class="badge text-white bg-secondary">Admin</div>';
             } else if ($fila->Rol == "1") {
-                $Rol = '<div class="col badge text-white bg-info">Vendedor</div>';
+                $Rol = '<div class="badge text-white bg-info">Vendedor</div>';
             } else if ($fila->Rol == "2") {
-                $Rol = '<div class="col badge text-white bg-success">Técnico</div>';
+                $Rol = '<div class="badge text-white bg-success">Técnico</div>';
             }
 
             if ($fila->Status == "A") {
-                $Status = '<div class="col badge text-white bg-primary">Activo</div>';
+                $Status = '<div class="badge text-white bg-success">Activo</div>';
                 $Botones = '
-                <button type="button" class="btn btn-outline-info btn-sm mr-2" title="Modificar" onclick="Datos_A_Editar_Usuarios(' . $fila->Id . ')"><i class="fa-solid fa-user-pen"></i></button>
-                <button type="button" class="btn btn-outline-danger btn-sm" title="Baja" onclick="Baja_Usuario(' . $fila->Id . ')"><i class="fa-solid fa-xmark"></i></button>
+                <button type="button" class="btn btn-outline-info btn-sm mr-2" title="Modificar" onclick="Datos_A_Editar_Usuarios(' . $fila->Id . ')"><i class="fa-solid fa-user-pen fa-beat"></i></button>
+                <button type="button" class="btn btn-outline-danger btn-sm" title="Baja" onclick="Baja_Usuario(' . $fila->Id . ')"><i class="fa-solid fa-xmark fa-beat"></i></button>
                 ';
             } else if ($fila->Status == "B") {
-                $Status = '<div class="col badge text-white bg-danger">Baja</div>';
+                $Status = '<div class="badge text-white bg-danger">Baja</div>';
                 $Botones = '
                 <button type="button" class="btn btn-outline-info btn-sm mr-2" title="Reactivar usuario" onclick="Reactivar_Usuario(' . $fila->Id . ')"><i class="fa-solid fa-check"></i></button>
                 ';
@@ -211,7 +212,7 @@ switch ($_GET["op"]) {
                 "3" => "<div class='text-left'>$fila->Correo</div>",
                 "4" => "<div class='text-left'>$Rol</div>",
                 "5" => "<div class='text-left'>$Status</div>",
-                "6" => "<div class='text-left'>$Botones</div>"
+                "6" => "<div class='d-flex justify-content-center'>$Botones</div>"
             );
         }
         $results = array(
