@@ -24,7 +24,7 @@
                     Configuración <i class="fa-solid fa-gear"></i>
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item text-dark" href="../global/Operaciones_Sesion.php?op=Cerrar_Sesion">Cerrar sesión <i class="fa-solid fa-right-from-bracket"></i></a>
+                    <a class="dropdown-item text-dark" href="../Archivos/sesion/Operaciones_Sesion.php?op=Cerrar_Sesion">Cerrar sesión <i class="fa-solid fa-right-from-bracket"></i></a>
                 </ul>
             </li>
         </ul>

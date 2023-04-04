@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="./img/Herramienta2.png" type="image/x-icon">
-    <link rel="stylesheet" href="../FF/Library/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./Library/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="./css/login.css">
     <title>Login</title>
 </head>
@@ -19,7 +19,7 @@
                     <div class="card-body p-0">
                         <div class="row">
                             <div class="col-lg-6 d-none d-lg-block text-center">
-                                <img src="../FF/img/Logo.png" class="Imagen_Logo" alt="Logo" width="400">
+                                <img src="../img/Logo.png" class="Imagen_Logo" alt="Logo" width="400">
                             </div>
                             <div class="col-lg-6">
                                 <div class="p-5">
@@ -50,11 +50,11 @@
             </div>
         </div>
     </div>
-    <script src="../FF/Library/jquery/jquery-3.6.3.min.js"></script>
-    <script src="../FF/Library/Popper/popper.min.js"></script>
-    <script src="../FF/Library/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="../FF/Library/fontawesome/all.min.js"></script>
-    <script src="../FF/js/index.js"></script>
+    <script src="./Library/jquery/jquery-3.6.3.min.js"></script>
+    <script src="./Library/Popper/popper.min.js"></script>
+    <script src="./Library/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="./Library/fontawesome/all.min.js"></script>
+    <script src="./js/index.js"></script>
 </body>
 
 </html>
