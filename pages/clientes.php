@@ -216,10 +216,6 @@ if (isset($_SESSION['Id_Empleado'])) {
                                 <label for="Id_Obra">Id</label>
                                 <input type="text" class="form-control form-control-sm" id="Id_Obra" name="Id_Obra" readonly>
                             </div>
-                            <div class="col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-                                <label for="Clasificacion">Clasificación </label>
-                                <select name="Clasificacion" id="Clasificacion" class="form-control form-control-sm " title="----------------------------------------------" required></select>
-                            </div>
                             <div class="col-12 col-sm-12 col-md-12 col-lg-9 col-xl-9">
                                 <label for="Descripcion_Obras">Obra </label>
                                 <input type="text" class="form-control form-control-sm " id="Descripcion_Obras" name="Descripcion_Obras" maxlength="500" required>
@@ -265,15 +261,12 @@ if (isset($_SESSION['Id_Empleado'])) {
                                 <button type="reset" class="btn btn-outline-secondary btn-sm" onclick="Limpiar_Formulario_O()">Limpiar <i class="fa-solid fa-eraser fa-beat"></i></button>
                             </div>
 
-                            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 justify-content-end d-flex mt-3">
-                                <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#Guardar_Clasificaciones" onclick="Mostrar_Tbl_Clasificaciones()">Agregar clasificaciones <i class="fa-regular fa-file-lines fa-beat"></i></button>
-                            </div>
+
 
                             <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 table-responsive mt-4">
                                 <table class="table table-hover table-sm" id="Tbl_Obra">
                                     <thead>
                                         <tr>
-                                            <th>Clasificación</th>
                                             <th>Obra</th>
                                             <th>Dirección</th>
                                             <th>Observaciones</th>
@@ -291,54 +284,6 @@ if (isset($_SESSION['Id_Empleado'])) {
                 </div>
             </div>
         </div>
-
-        <!-- Modal -->
-        <div class="modal fade" id="Guardar_Clasificaciones" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-scrollable modal-lg modal-center">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title text-primary" id="">Clasificaciones</h4>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="Limpiar_Formulario_Calcificaciones()"><span aria-hidden="true">&times;</span></button>
-                    </div>
-                    <div class="modal-body">
-
-                        <form action="" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 justify-content-center d-flex row was-validated" id="Form_Clasificaciones">
-                            <div class="col-12 col-sm-12 col-md-12 col-lg-2 col-xl-2" hidden>
-                                <label for="Id_Clasificacion">Id</label>
-                                <input type="text" class="form-control form-control-sm" id="Id_Clasificacion" name="Id_Clasificacion" readonly>
-                            </div>
-                            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                                <label for="Nombre_Clasificacion">Nombre </label>
-                                <input type="text" class="form-control form-control-sm " id="Nombre_Clasificacion" name="Nombre_Clasificacion" maxlength="150" required>
-                            </div>
-
-                            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 justify-content-center d-flex mt-3">
-                                <button type="submit" class="btn btn-outline-success btn-sm mr-2">Guardar <i class="fa-solid fa-floppy-disk fa-beat"></i></button>
-                                <button type="button" class="btn btn-outline-secondary btn-sm" onclick="Limpiar_Formulario_Calcificaciones()">Limpiar <i class="fa-solid fa-eraser fa-beat"></i></button>
-                            </div>
-
-                            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 table-responsive mt-4">
-                                <table class="table table-hover table-sm" id="Tbl_Clasificaciones">
-                                    <thead>
-                                        <tr>
-                                            <th>N°</th>
-                                            <th>Nombre</th>
-                                            <th>--------</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
         <?php include "../global/Fooder.php"; ?>
         <script src="../js/clientes.js"></script>
     </body>

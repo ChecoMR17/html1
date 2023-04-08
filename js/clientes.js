@@ -1,6 +1,6 @@
 let Tbl_Clientes;
 let Tbl_Contacto;
-let Tbl_Clasificaciones;
+
 let Tbl_Obras;
 $(document).ready(() => {
   $("#Agregar_Clientes").on("submit", function (e) {
@@ -9,15 +9,12 @@ $(document).ready(() => {
   $("#Form_Contacto").on("submit", function (e) {
     Guardar_Contacto(e);
   });
-  $("#Form_Clasificaciones").on("submit", function (e) {
-    Guardar_Clasificacion(e);
-  });
+
   $("#Form_Obras").on("submit", function (e) {
     Guardar_Obras(e);
   });
   Mostrar_Estados();
   Mostrar_Lista_Clientes();
-  Buscar_Clasificacion();
 });
 
 let Guardar_Cliente = (e) => {
@@ -586,184 +583,6 @@ let Btn_Limpiar_C_C = () => {
   $("#Observaciones_Contactos").val("");
 };
 
-/** --------------------------------------------- CLASIFICACIONES -------------------------------------------------------- */
-let Guardar_Clasificacion = (e) => {
-  e.preventDefault();
-  let data = new FormData($("#Form_Clasificaciones")[0]);
-  Swal.fire({
-    title: "¿Estás seguro(a) de guardar?",
-    text: "",
-    icon: "question",
-    showCancelButton: true,
-    confirmButtonColor: "#3085d6",
-    cancelButtonColor: "#d33",
-    confirmButtonText: "¡Continuar!",
-  }).then((Opcion) => {
-    if (Opcion.isConfirmed) {
-      Swal.fire({
-        imageUrl: "../img/Cargando.gif",
-        imageWidth: 400,
-        imageHeight: 400,
-        background: "background-color: transparent",
-        showConfirmButton: false,
-        customClass: "transparente",
-      });
-      setTimeout(() => {
-        $.ajax({
-          type: "POST",
-          url: "../Archivos/Clientes/Operaciones.php?op=Guardar_Clasificacion",
-          data: data,
-          contentType: false,
-          processData: false,
-          success: function (result) {
-            //console.log(result);
-            if (result == 200) {
-              Swal.fire({
-                position: "center",
-                icon: "success",
-                title: "¡Guardado!",
-                showConfirmButton: false,
-                timer: 2500,
-              });
-              Limpiar_Formulario_Calcificaciones();
-              Tbl_Clasificaciones.ajax.reload();
-              Buscar_Clasificacion();
-            } else if (result == 202) {
-              Swal.fire({
-                position: "center",
-                icon: "warning",
-                title: "¡La clasificación que intenta registrar ya existe!",
-                showConfirmButton: false,
-                timer: 2500,
-              });
-            } else {
-              Swal.fire({
-                position: "center",
-                icon: "error",
-                title: "¡Error, Inténtalo más tarde!",
-                showConfirmButton: false,
-                timer: 1500,
-              });
-            }
-          },
-        });
-      }, 250);
-    } else {
-      Swal.fire({
-        position: "center",
-        icon: "info",
-        title: "¡Operación cancelada!",
-        showConfirmButton: false,
-        timer: 1500,
-      });
-    }
-  });
-};
-
-let Mostrar_Tbl_Clasificaciones = () => {
-  setTimeout(() => {
-    Tbl_Clasificaciones = $("#Tbl_Clasificaciones")
-      .dataTable({
-        language: {
-          search: "BUSCAR",
-          info: "_START_ A _END_ DE _TOTAL_ ELEMENTOS",
-        },
-        dom: "Bfrtip",
-        buttons: ["copy", "excel", "pdf"],
-        autoFill: true,
-        colReorder: true,
-        rowReorder: true,
-        ajax: {
-          url: "../Archivos/Clientes/Operaciones.php?op=Mostrar_Tbl_Clasificaciones",
-          type: "post",
-          dataType: "json",
-          error: (e) => {
-            console.log("Error función listar() \n" + e.responseText);
-          },
-        },
-        bDestroy: true,
-        iDisplayLength: 20,
-        order: [[0, "desc"]],
-      })
-      .DataTable();
-  }, 250);
-};
-
-let Datos_Clasificacion = (Id_Clasificacion) => {
-  $.post(
-    "../Archivos/Clientes/Operaciones.php?op=Datos_Clasificacion",
-    { Id_Clasificacion },
-    (result) => {
-      //console.log(result);
-      result = JSON.parse(result);
-      $("#Id_Clasificacion").val(Id_Clasificacion);
-      $("#Nombre_Clasificacion").val(result.Nombre);
-    }
-  );
-};
-
-let Eliminar_Clasificacion = (Id_Clasificacion) => {
-  Swal.fire({
-    title: "¿Estás seguro(a) de eliminar la clasificación?",
-    text: "",
-    icon: "question",
-    showCancelButton: true,
-    confirmButtonColor: "#3085d6",
-    cancelButtonColor: "#d33",
-    confirmButtonText: "¡Continuar!",
-  }).then((Opcion) => {
-    if (Opcion.isConfirmed) {
-      Swal.fire({
-        imageUrl: "../img/Cargando.gif",
-        imageWidth: 400,
-        imageHeight: 400,
-        background: "background-color: transparent",
-        showConfirmButton: false,
-        customClass: "transparente",
-      });
-      setTimeout(() => {
-        $.post(
-          "../Archivos/Clientes/Operaciones.php?op=Eliminar_Clasificacion",
-          { Id_Clasificacion },
-          (result) => {
-            if (result == 200) {
-              Swal.fire({
-                position: "center",
-                icon: "success",
-                title: "¡La clasificación se elimino!",
-                showConfirmButton: false,
-                timer: 1500,
-              });
-              Tbl_Clasificaciones.ajax.reload();
-              Buscar_Clasificacion();
-            } else {
-              Swal.fire({
-                position: "center",
-                icon: "error",
-                title: "¡Error, Inténtalo más tarde!",
-                showConfirmButton: false,
-                timer: 1500,
-              });
-            }
-          }
-        );
-      }, 250);
-    } else {
-      Swal.fire({
-        position: "center",
-        icon: "info",
-        title: "¡Operación cancelada!",
-        showConfirmButton: false,
-        timer: 1500,
-      });
-    }
-  });
-};
-
-let Limpiar_Formulario_Calcificaciones = () => {
-  $("#Id_Clasificacion").val("");
-  $("#Nombre_Clasificacion").val("");
-};
 /** --------------------------------------------- OBRAS -------------------------------------------------------- */
 
 let Datos_F_Obras = (Id_Cliente) => {
@@ -883,16 +702,6 @@ let Buscar_Municipios_O = () => {
   );
 };
 
-let Buscar_Clasificacion = () => {
-  $.post(
-    "../Archivos/Clientes/Operaciones.php?op=Buscar_Clasificacion",
-    (result) => {
-      $("#Clasificacion").html(result);
-      $("#Clasificacion").selectpicker("refresh");
-    }
-  );
-};
-
 let Eliminar_Obra = (Id_Obra) => {
   Swal.fire({
     title: "¿Estás seguro(a) de eliminar la obra?",
@@ -966,7 +775,6 @@ let Datos_Obra = (Id_Obra) => {
         timer: 1000,
       });
       $("#Id_Obra").val(Id_Obra);
-      $("#Clasificacion").val(result.Id_Clasificacion);
       $("#Descripcion_Obras").val(result.Nombre_Obra);
       $("#Estado_O").val(result.Id_Estado);
       $("#Colonia_O").val(result.Colonia);
@@ -982,7 +790,6 @@ let Datos_Obra = (Id_Obra) => {
         $("#Municipio_O").selectpicker("refresh");
       }, 250);
       $("#Estado_O").selectpicker("refresh");
-      $("#Clasificacion").selectpicker("refresh");
     }
   );
 };
