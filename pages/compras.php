@@ -65,7 +65,6 @@
                                 <select name="Id_Mat" id="Id_Mat" class='form-control form-control-sm ' title='Seleccionar...' 
                                     data-live-search="true" required></select>
                             </div>
-
                             <div class="form-group col-lg-2 col-md-2 col-sm-4 col-12" title="Unidad de medida">
                                 <label for="UM">Unidad de Medida</label>
                                 <input type="text" id='UM' name='UM' class='form-control form-control-sm' placeholder='UM' readonly>
