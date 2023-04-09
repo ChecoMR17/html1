@@ -20,6 +20,12 @@
                 <a class="dropdown-item" href="./ordenes_trabajo.php">Ordenes de trabajo</a>
             </li>
             <li class="nav-item dropdown">
+                <a class="dropdown-item" href="./cat_materiales.php"><i class="fa-solid fa-warehouse"></i> Inventario</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="dropdown-item" href="./ventas.php"><i class="fa-solid fa-dollar-sign fa-beat"></i> Ventas</a>
+            </li>
+            <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Configuración <i class="fa-solid fa-gear"></i>
                 </a>
