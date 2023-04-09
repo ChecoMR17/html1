@@ -9,14 +9,14 @@ let Consultar_Datos = (e) => {
   let data = new FormData($("#Form_Login")[0]);
   $.ajax({
     type: "POST",
-    url: "../../FF/global/Operaciones_Sesion.php?op=login",
+    url: "../Archivos/sesion/Operaciones_Sesion.php?op=login",
     data: data,
     contentType: false,
     processData: false,
     success: function (result) {
       console.log(result);
       if (result == 200) {
-        window.location.href = "../../FF/pages/home.php";
+        window.location.href = "../pages/home.php";
       } else if (result == 201) {
         $("#Alert_Login").text("Usuario no encontrado");
       } else if (result == 202) {
@@ -27,12 +27,3 @@ let Consultar_Datos = (e) => {
     },
   });
 };
-/*
-let Cerrar_Sesion = () => {
-  $.post(
-    "../../FF/global/Operaciones_Sesion.php?op=Cerrar_Sesion",
-    (result) => {
-      console.log(result);
-    }
-  );
-};*/

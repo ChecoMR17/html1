@@ -1,7 +1,6 @@
 <?php
 session_start();
-include "./conexion.php";
-date_default_timezone_set('America/Mexico_City');
+include "../../global/conexion.php";
 $Fecha_Actual = date("Y-m-d H:i:s");
 //Variables
 $User = isset($_POST['User']) ? $_POST['User'] : "";
@@ -30,7 +29,7 @@ switch ($_GET['op']) {
         $query = ejecutarConsulta("UPDATE User SET Activo='0' WHERE Usuario='" . $_SESSION['Id_Empleado'] . "';");
         if ($query) {
             session_destroy();
-            header('location: ../index.php');
+            header('location: ../../../../index.php');
         } else {
             echo 201;
         }

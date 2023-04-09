@@ -31,9 +31,6 @@ $Telefono_Contacto = isset($_POST["Telefono_Contacto"]) ? $_POST["Telefono_Conta
 $Correo_C_C = isset($_POST["Correo_C_C"]) ? $_POST["Correo_C_C"] : "";
 $Correo_C_P = isset($_POST["Correo_C_P"]) ? $_POST["Correo_C_P"] : "";
 $Observaciones_Contactos = isset($_POST["Observaciones_Contactos"]) ? $_POST["Observaciones_Contactos"] : "";
-$Id_Clasificacion = isset($_POST["Id_Clasificacion"]) ? $_POST["Id_Clasificacion"] : "";
-$Nombre_Clasificacion = isset($_POST["Nombre_Clasificacion"]) ? $_POST["Nombre_Clasificacion"] : "";
-
 $Id_Obra = isset($_POST['Id_Obra']) ? $_POST['Id_Obra'] : "";
 $Clasificacion = isset($_POST['Clasificacion']) ? $_POST['Clasificacion'] : "";
 $Nombre_Obra = isset($_POST['Descripcion_Obras']) ? $_POST['Descripcion_Obras'] : "";
@@ -213,77 +210,24 @@ switch ($_GET['op']) {
         }
         echo $Salida;
         break;
-    case 'Guardar_Clasificacion':
-        if ($Id_Clasificacion == "") { // Insert
-            // Validar existencia
-            $COUNT = ejecutarConsultaSimpleFila("SELECT count(*) FROM Clasificaciones WHERE Nombre='$Nombre_Clasificacion' AND Status='A'")[0];
-            if ($COUNT == 0) {
-                $query = ejecutarConsulta("INSERT INTO Clasificaciones(Nombre,Status) VALUES('$Nombre_Clasificacion','A')");
-                echo $query ? 200 : 201;
-            } else {
-                echo 202;
-            }
-        } else { // update
-            $query = ejecutarConsulta("UPDATE Clasificaciones SET Nombre='$Nombre_Clasificacion' WHERE Id='$Id_Clasificacion'");
-            echo $query ? 200 : 201;
-        }
-        break;
-    case 'Mostrar_Tbl_Clasificaciones':
-        $query = ejecutarConsulta("SELECT*FROM Clasificaciones WHERE Status='A';");
-        while ($fila = mysqli_fetch_object($query)) {
-            $Botones = '
-                <button type="button" class="btn btn-outline-info btn-sm mr-2" title="Modificar" onclick="Datos_Clasificacion(' . $fila->Id . ')"><i class="fa-solid fa-user-pen fa-beat"></i></button>
-                <button type="button" class="btn btn-outline-danger btn-sm" title="Eliminar" onclick="Eliminar_Clasificacion(' . $fila->Id . ')"><i class="fa-solid fa-xmark fa-beat"></i></button>
-                ';
-            $datos[] = array(
-                "0" => "<div class='text-left'>$fila->Id</div>",
-                "1" => "<div class='text-left'>$fila->Nombre</div>",
-                "2" => "<div class='d-flex justify-content-center'>$Botones</div>"
-            );
-        }
-        $results = array(
-            "sEcho" => 1, //Información para el datatables
-            "iTotalRecords" => count($datos), //enviamos el total registros al datatable
-            "iTotalDisplayRecords" => count($datos), //enviamos el total registros a visualizar
-            "aaData" => $datos
-        );
-        //Enviamos los datos de la tabla 
-        echo json_encode($results);
-        break;
-    case 'Datos_Caracteristicas':
-        $query = ejecutarConsultaSimpleFila("SELECT*FROM Clasificaciones WHERE Id='$Id_Clasificacion'");
-        echo json_encode($query);
-        break;
-    case 'Eliminar_Clasificacion':
-        $query = ejecutarConsulta("UPDATE Clasificaciones SET Status='E' WHERE Id='$Id_Clasificacion'");
-        echo $query ? 200 : 201;
-        break;
-    case 'Buscar_Clasificacion':
-        $query = ejecutarConsulta("SELECT*FROM Clasificaciones WHERE Status='A';");
-        while ($fila = mysqli_fetch_object($query)) {
-            $Salida .= "<option class='text-dark' value='$fila->Id'>$fila->Nombre</option>";
-        }
-        echo $Salida;
-        break;
     case 'Guardar_Obras':
         if ($Id_Obra == "") { //Insert
             //VAlidamos que no exista
             $COUNT = ejecutarConsultaSimpleFila("SELECT count(*) FROM Obras WHERE Nombre_Obra='$Nombre_Obra'")[0];
             if ($COUNT == 0) {
-                $query = ejecutarConsulta("INSERT INTO Obras(Id_Cliente,Id_Clasificacion,Nombre_Obra,Id_Estado,Id_Municipios,Colonia,Calle,N_Exterior,N_Interior,Codigo_P,Observaciones,Fecha_Alta,Status) 
-                VALUES('$Id_Cliente','$Clasificacion','$Nombre_Obra','$Estado_O','$Municipio_O','$Colonia_O','$Calle_O','$N_Exterior_O','$N_Interior_O','$CP_O','$Observaciones_O','$Fecha_Actual','A');");
+                $query = ejecutarConsulta("INSERT INTO Obras(Id_Cliente,Nombre_Obra,Id_Estado,Id_Municipios,Colonia,Calle,N_Exterior,N_Interior,Codigo_P,Observaciones,Fecha_Alta,Status) 
+                VALUES('$Id_Cliente','$Nombre_Obra','$Estado_O','$Municipio_O','$Colonia_O','$Calle_O','$N_Exterior_O','$N_Interior_O','$CP_O','$Observaciones_O','$Fecha_Actual','A');");
                 echo $query ? 200 : 201;
             } else {
                 echo 202;
             }
         } else { // Update
-            $query = ejecutarConsulta("UPDATE Obras SET Id_Cliente='$Id_Cliente',Id_Clasificacion='$Clasificacion',Nombre_Obra='$Nombre_Obra',Id_Estado='$Estado_O',Id_Municipios='$Municipio_O',Colonia='$Colonia_O',Calle='$Calle_O',N_Exterior='$N_Exterior_O',N_Interior='$N_Interior_O',Codigo_P='$CP_O',Observaciones='$Observaciones_O',Fecha_Modificacion='$Fecha_Actual' WHERE Id='$Id_Obra'");
+            $query = ejecutarConsulta("UPDATE Obras SET Id_Cliente='$Id_Cliente',Nombre_Obra='$Nombre_Obra',Id_Estado='$Estado_O',Id_Municipios='$Municipio_O',Colonia='$Colonia_O',Calle='$Calle_O',N_Exterior='$N_Exterior_O',N_Interior='$N_Interior_O',Codigo_P='$CP_O',Observaciones='$Observaciones_O',Fecha_Modificacion='$Fecha_Actual' WHERE Id='$Id_Obra'");
             echo $query ? 200 : 201;
         }
         break;
     case 'Mostrar_Tbl_Obras':
-        $query = ejecutarConsulta("SELECT O.Id,C.Nombre AS Clasificacion,O.Nombre_Obra AS Obra,E.Nombre AS Estado,M.Nombre AS Municipio,O.Colonia,O.Calle,O.N_Exterior,O.N_Interior,O.Codigo_P,O.Observaciones,O.Status FROM Obras O
-        LEFT JOIN Clasificaciones C ON(O.Id_Clasificacion=C.Id)
+        $query = ejecutarConsulta("SELECT O.Id,O.Nombre_Obra AS Obra,E.Nombre AS Estado,M.Nombre AS Municipio,O.Colonia,O.Calle,O.N_Exterior,O.N_Interior,O.Codigo_P,O.Observaciones,O.Status FROM Obras O
         LEFT JOIN Estados E ON(O.Id_Estado=E.Id_Estado)
         LEFT JOIN Municipios M ON(O.Id_Municipios=M.Id_Municipios)
         WHERE O.Id_Cliente='$Id_Cliente' AND O.Status='A';");
@@ -299,11 +243,10 @@ switch ($_GET['op']) {
 
             $Direccion = "C " . $fila->Calle . ", # " . $fila->N_Exterior . $fila->N_Interior . ", Loc. " . $fila->Colonia . ", CP. " . $fila->Codigo_P . ", " . $fila->Municipio . ", " . $fila->Estado;
             $datos[] = array(
-                "0" => "<div class='text-left'>$fila->Clasificacion</div>",
-                "1" => "<div class='text-left'>$fila->Obra</div>",
-                "2" => "<div class='text-left'>$Direccion</div>",
-                "3" => "<div class='text-left'>$fila->Observaciones</div>",
-                "4" => "<div class='d-flex justify-content-center'>$Botones</div>"
+                "0" => "<div class='text-left'>$fila->Obra</div>",
+                "1" => "<div class='text-left'>$Direccion</div>",
+                "2" => "<div class='text-left'>$fila->Observaciones</div>",
+                "3" => "<div class='d-flex justify-content-center'>$Botones</div>"
             );
         }
         $results = array(
