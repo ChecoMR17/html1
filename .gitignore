@@ -1,0 +1,6 @@
+./.vscode
+./global/conexion.php
+./Library
+./Archivos/Ventas/pdf_repVentas.php
+./Archivos/Ventas/pdf_ventas.php
+./Archivos/Ordenes/Formatos/Ordenes.php

@@ -1,6 +1,7 @@
-create database FF;
 
-use FF;
+create database asb;
+
+use asb;
 
 create table Estados(
 Id_Estado int primary key auto_increment,
@@ -2614,8 +2615,6 @@ CREATE TABLE Obras(
 Id int primary key auto_increment,
 Id_Cliente int not null,
 foreign key (Id_Cliente) references Clientes(Id),
-Id_Clasificacion int not null,
-foreign key (Id_Clasificacion) references Clasificaciones(Id),
 Nombre_Obra nvarchar(500) not null,
 Id_Estado int not null,
 foreign key (Id_Estado) references Estados(Id_Estado),
@@ -2641,15 +2640,132 @@ Id_Obra int not null,
 foreign key (Id_Obra) references Obras(Id),
 Id_Contacto int not null,
 foreign key (Id_Contacto) references Contactos_Clientes(Id),
+Id_Clasificacion int not null,
+foreign key (Id_Clasificacion) references Clasificaciones(Id),
 Prioridad nvarchar(50) not null,
 Proyecto nvarchar(200) not null,
 Fecha_Inicio date not null,
 Fecha_Final date not null,
-Detalles nvarchar(5000) null,
+Observaciones nvarchar(5000) null,
 Fecha_Alta datetime not null,
 Fecha_Modificacion datetime null,
 Fecha_Ejecucion datetime null,
 Fecha_Concluido datetime null,
 Fecha_Cancelacion datetime null,
+Status nvarchar(1) not null,
+N_Cotizacion nvarchar(20) null
+);
+
+CREATE TABLE Actividades_OT(
+Id int primary key auto_increment,
+Id_OT int not null,
+foreign key (Id_OT) references Ordenes_Trabajo(Id),
+Actividad nvarchar(200) not null,
+Descripcion nvarchar(5000) null,
+Fecha_Actividad date not null,
+Fecha_Alta date not null,
+Fecha_Modificacion date null,
+Fecha_Eliminar date null,
 Status nvarchar(1) not null
 );
+
+CREATE TABLE Documentos_OT(
+Id int primary key auto_increment,
+Id_OT int not null,
+foreign key (Id_OT) references Ordenes_Trabajo(Id),
+Nombre nvarchar(100) not null,
+Ruta nvarchar(500) not null,
+Observaciones nvarchar(100) null,
+Fecha_alta date not null
+);
+
+CREATE TABLE Cat_Familias (
+    Id_Fam   int primary key auto_increment,
+    Desc_Fam VARCHAR (50) NOT NULL,
+    Ganancia FLOAT not null
+);
+
+CREATE TABLE Proveedores(
+Id int primary key auto_increment,
+Tipo_Persona nvarchar(20) not null,
+Nombre nvarchar(50) not null,
+Apellido_P nvarchar(50) null,
+Apellido_M nvarchar(50) null,
+RFC nvarchar(13) not null,
+Pago nvarchar(20) null,
+Giro nvarchar(50) not null,
+Observaciones nvarchar(500) null,
+Fecha_alta datetime not null,
+Fecha_Modificacion datetime null,
+Fecha_Baja datetime null,
+Status nvarchar(1) not null
+);
+
+create table Familias_Proveedores(
+Id int primary key auto_increment,
+Id_Proveedor int not null,
+foreign key (Id_Proveedor) references Proveedores(Id),
+Id_Familia int not null,
+foreign key (Id_Familia) references Cat_Familias(Id_Fam)
+);
+
+create table Sucursales_Proveedores(
+Id int primary key auto_increment,
+Id_Proveedor int not null,
+foreign key (Id_Proveedor) references Proveedores(Id),
+Nombre nvarchar(100) not null,
+P_Contacto nvarchar(100) null,
+S_Contacto nvarchar(100) null,
+Calle nvarchar(100) not null,
+N_Exterior float not null,
+N_Interior float null,
+Colonia nvarchar(100) not null,
+CP int not null,
+Id_Estado int not null,
+foreign key (Id_Estado) references Estados(Id_Estado),
+Id_Municipios int not null,
+foreign key (Id_Municipios) references Municipios(Id_Municipios),
+Celular nvarchar(15) not null,
+Telefono nvarchar(15) null,
+Correo_C nvarchar(100) null,
+Correo_P nvarchar(100) null,
+Fecha_Alta datetime not null,
+Fecha_Modificacion datetime null,
+Fecha_Baja datetime null,
+Status nvarchar(1)
+);
+create table Bancos(
+Id int primary key auto_increment,
+Nombre nvarchar(50) not null
+);
+insert into Bancos(Nombre) values('AFIRME');
+insert into Bancos(Nombre) values('BANAMEX');
+insert into Bancos(Nombre) values('BANBAJIO');
+insert into Bancos(Nombre) values('BANCA MIFEL');
+insert into Bancos(Nombre) values('BANCO AZTECA');
+insert into Bancos(Nombre) values('BANCOPEL');
+insert into Bancos(Nombre) values('BANORTE');
+insert into Bancos(Nombre) values('BANCOMER');
+insert into Bancos(Nombre) values('BANJERCITO');
+
+create table Bancos_Proveedores(
+Id int primary key auto_increment,
+Id_Proveedor int not null,
+foreign key (Id_Proveedor) references Proveedores(Id),
+Id_Banco int not null,
+foreign key (Id_Banco) references Bancos(Id),
+Sucursal nvarchar(50) null,
+Cuenta nvarchar(50) not null,
+Clave nvarchar(50) not null,
+Referencia nvarchar(50) null,
+Fecha_Alta datetime not null,
+Fecha_Modificacion datetime null,
+Fecha_Baja datetime null,
+Status nvarchar(1)
+);
+
+
+
+
+
+

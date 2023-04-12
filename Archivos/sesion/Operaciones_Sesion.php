@@ -15,7 +15,7 @@ switch ($_GET['op']) {
             if (password_verify($Password, $query['Contraseña'])) {
                 $_SESSION['Id_Empleado'] = $query['Id_Empleado'];
                 $_SESSION['Usuario'] = $query['Usuario'];
-                $_SESSION['Rol'] = $query['Rol'];
+                $_SESSION['Permiso'] = $query['Rol'];
                 $sql = ejecutarConsulta("UPDATE User SET UF_Activo='$Fecha_Actual', Activo='1' WHERE Usuario='$User';");
                 echo $sql ? 200 : 203;
             } else {
