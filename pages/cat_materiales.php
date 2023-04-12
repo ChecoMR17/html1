@@ -1,4 +1,6 @@
-<?php include('../global/Header.php') ?>
+<?php 
+session_start();
+include('../global/Header.php') ?>
 
     <!--    Título    -->
     <title>Inventario</title>

@@ -1,4 +1,6 @@
-<?php include('../global/Header.php') ?>
+<?php 
+session_start();
+include('../global/Header.php') ?>
 
     <!--    Título    -->
     <title>Ventas</title>
@@ -170,7 +172,7 @@
                 <div class="table-responsive col-12" id='div_Ventas'>
                     <div class="alert alert-success" role="alert">
                         <div class='form-row d-felx justify-content-around text-center'>
-                            <div class=form-group col-xs-1">
+                            <div class="form-group col-xs-1">
                                 <label for="Filtro">Filtro</label>
                                 <select name="Filtro" id="Filtro" data-size='6' class="form-control form-control-sm bg-transparent rounded-pill">
                                     <option value="Hoy">Hoy</option>
@@ -181,22 +183,22 @@
                                 </select>
                             </div>
 
-                            <div class=form-group col-xs-1">
+                            <div class="form-group col-xs-1">
                                 <label for="Inicio">Inicio</label>
                                 <input Id='Inicio' name='Inicio' type="date" class="form-control form-control-sm bg-transparent rounded-pill">
                             </div>
 
-                            <div class=form-group col-xs-1">
+                            <div class="form-group col-xs-1">
                                 <label for="Fin">Fin</label>
                                 <input Id='Fin' name='Fin' type="date" class="form-control form-control-sm bg-transparent rounded-pill">
                             </div>
 
-                            <div class=form-group col-xs-1">
+                            <div class="form-group col-xs-1">
                                 <label>Vendido</label>
                                 <label id="Vendido" class="form-control bg-transparent rounded-pill">$0.00</label>
                             </div>
 
-                            <div class=form-group col-xs-1" title='Imprimir reporte de venta'>
+                            <div class="form-group col-xs-1" title='Imprimir reporte de venta'>
                                 <button class="btn btn-outline-danger btn-sm mt-4" id="btnRep">Imprimir <i class="fa-solid fa-file-pdf fa-beat"></i></button>
                             </div>
                         </div>

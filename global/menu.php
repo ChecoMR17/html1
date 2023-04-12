@@ -1,31 +1,31 @@
 <nav class="navbar navbar-expand-lg mb-4" id="main_navbar">
-    <img src="../img/Herramienta1.png" width="35px" height="35px" class="img-fluid ${3|rounded-top,rounded-right,rounded-bottom,rounded-left,rounded-circle,|}" alt="sir.png">
+    <img src="../img/Logo.png" width="70" height="70" class="img-fluid ${3|rounded-top,rounded-right,rounded-bottom,rounded-left,rounded-circle,|}" alt="sir.png">
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><i class="fas fa-water text-light"></i></button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto" id="ulMenu">
             <li class="nav-item dropdown">
-                <a class="dropdown-item" href="./home.php">Home</a>
+                <a class="dropdown-item" href="./home.php">Home <i class="fa-solid fa-house-chimney fa-beat"></i></a>
             </li>
             <?php if ($_SESSION['Permiso'] == "0") { ?>
                 <li class="nav-item dropdown">
-                    <a class="dropdown-item" href="./Empleados.php">Personal</a>
+                    <a class="dropdown-item" href="./Empleados.php">Personal <i class="fa-solid fa-person-circle-check fa-beat"></i></a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="dropdown-item" href="./clientes.php">Clientes</a>
+                    <a class="dropdown-item" href="./clientes.php">Clientes <i class="fa-solid fa-people-group fa-beat"></i></a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="dropdown-item" href="./proveedores.php">Proveedores</a>
+                    <a class="dropdown-item" href="./proveedores.php">Proveedores <i class="fa-solid fa-people-carry-box fa-beat"></i></a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="dropdown-item" href="./ordenes_trabajo.php">Ordenes de trabajo</a>
+                    <a class="dropdown-item" href="./ordenes_trabajo.php">Ordenes de trabajo <i class="fa-solid fa-person-digging fa-beat"></i></a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="dropdown-item" href="./cat_materiales.php"><i class="fa-solid fa-warehouse"></i> Inventario</a>
+                    <a class="dropdown-item" href="./cat_materiales.php">Inventario <i class="fa-solid fa-warehouse fa-beat"></i></a>
                 </li>
             <?php }
             if ($_SESSION['Permiso'] == "0" || $_SESSION['Permiso'] == "1") {  ?>
                 <li class="nav-item dropdown">
-                    <a class="dropdown-item" href="./ventas.php"><i class="fa-solid fa-dollar-sign fa-beat"></i> Ventas</a>
+                    <a class="dropdown-item" href="./ventas.php">Ventas <i class="fa-solid fa-dollar-sign fa-beat"></i></a>
                 </li>
             <?php } ?>
             <li class="nav-item dropdown">

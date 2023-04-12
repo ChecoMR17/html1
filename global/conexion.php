@@ -1,9 +1,9 @@
 <?php
 
-$host = "localhost";
-$user = "root";
-$password = "smr17";
-$BD = "FF";
+$host = "192.168.1.69";
+$user = "checo";
+$password = "c";
+$BD = "asb";
 $port = "3306";
 $conexion = mysqli_connect($host, $user, $password, $BD, $port);
 date_default_timezone_set('America/Mexico_City');
